@@ -1,0 +1,27 @@
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+
+# npm
+node_modules/*
+yarn.lock
+client/public/bundle.js
+*.log
+*.gz
+
+
+# Coveralls
+**/coverage
+
+.env
