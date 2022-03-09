@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import Question from "./Question"
-import { hot } from "react-hot-loader/root"
 
 import "../assets/scss/main.scss"
 import FAQForm from "./FAQForm"
@@ -24,8 +23,11 @@ const FAQList = (props) => {
     }
   }
 
+  // Create a function to send a POST request in the component tracking state that will be updated after we get the response.
   const addNewQuestion = async (formPayload) => {
+    debugger
     try {
+      // Have to specify the method if we don't want to use the default of GET
       const response = await fetch("/api/v1/questions", {
         method: "POST",
         headers: new Headers({
@@ -41,6 +43,10 @@ const FAQList = (props) => {
         }
       }
       const body = await response.json()
+      debugger
+      // Use the spread operator to keep all previous values of "questions"
+      // and add the new body.question
+      // Then set the whole new array in state
       setQuestions([...questions, body.question])
     } catch (err) {
       console.error(`Error in fetch: ${err.message}`)
@@ -89,4 +95,4 @@ const FAQList = (props) => {
   )
 }
 
-export default hot(FAQList)
+export default FAQList

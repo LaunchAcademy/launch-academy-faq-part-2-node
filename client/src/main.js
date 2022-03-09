@@ -1,9 +1,6 @@
-import 'babel-polyfill';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import FAQList from './components/FAQList'
+import "babel-polyfill"
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./components/App"
 
-ReactDOM.render(
-  <FAQList />,
-  document.getElementById('app')
-);
+ReactDOM.render(<App />, document.getElementById("app"))
