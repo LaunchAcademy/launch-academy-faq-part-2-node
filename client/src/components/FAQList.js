@@ -1,15 +1,33 @@
-import React, { useState } from 'react'
-import Question from './Question'
+import React, { useEffect, useState } from "react"
+import Question from "./Question"
 import { hot } from "react-hot-loader/root"
 
 import "../assets/scss/main.scss"
 
-
-const FAQList = props => {
+const FAQList = (props) => {
   const [questions, setQuestions] = useState([])
-  const [selectedQuestion, setSelectedQuestion] = useState([])
+  const [selectedQuestion, setSelectedQuestion] = useState(null)
 
-  const toggleQuestionSelect = id => {
+  const getQuestions = async () => {
+    try {
+      const response = await fetch("/api/v1/questions")
+      if (!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        const error = new Error(errorMessage)
+        throw error
+      }
+      const questionsData = await response.json()
+      setQuestions(questionsData.questions)
+    } catch (err) {
+      console.error(`Error in fetch: ${err.message}`)
+    }
+  }
+
+  useEffect(() => {
+    getQuestions()
+  }, [])
+
+  const toggleQuestionSelect = (id) => {
     if (id === selectedQuestion) {
       setSelectedQuestion(null)
     } else {
@@ -17,7 +35,7 @@ const FAQList = props => {
     }
   }
 
-  const questionListItems = questions.map(question => {
+  const questionListItems = questions.map((question) => {
     let selected
     if (selectedQuestion === question.id) {
       selected = true
